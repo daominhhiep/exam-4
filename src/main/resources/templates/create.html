@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css" rel="stylesheet"/>
+    <title>Create city</title>
+</head>
+<body data-set-preferred-mode-onload="true">
+<h1>Thêm thành phố</h1>
+<p>
+
+</p>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<form th:action="@{/create}" th:object="${city}" method="post">
+    <table class="table table-striped">
+        <tr>
+            <td>Tên:</td>
+            <td><input type="text" class="form-control" th:field="*{name}" required/></td>
+        </tr>
+        <tr>
+            <td>Quốc gia:</td>
+            <td>
+                <select class="form-control" th:field="*{country}">
+                    <option th:each="c : ${countries}" th:value="${c.id}" th:text="${c.name}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th:block th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></th:block>
+            <td>Diện tích:</td>
+            <td><input class="form-control" type="text" th:field="*{area}" required/></td>
+        </tr>
+        <tr>
+            <th:block th:if="${#fields.hasErrors('population')}" th:errors="*{population}"></th:block>
+            <td>Dân số:</td>
+            <td><input class="form-control" type="text" th:field="*{population}" required/></td>
+        </tr>
+        <tr>
+            <th:block th:if="${#fields.hasErrors('gdp')}" th:errors="*{gdp}"></th:block>
+            <td>GDP:</td>
+            <td><input class="form-control" type="text" th:field="*{gdp}" required/></td>
+        </tr>
+
+        <tr>
+            <td>Giới thiệu:</td>
+            <td><textarea class="form-control" rows="5" cols="25" th:field="*{introduce}" required></textarea></td>
+        </tr>
+    </table>
+    <input type="submit" class="btn" value="Create">
+</form>
+<br>
+<button class="btn"><a href="/">Thoát</a></button>
+<script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
+</body>
+</html>

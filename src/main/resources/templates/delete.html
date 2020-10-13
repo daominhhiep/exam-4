@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css" rel="stylesheet"/>
+    <title>Delete city</title>
+</head>
+<body data-set-preferred-mode-onload="true">
+<h1>Xóa thành phố</h1>
+
+<form th:action="@{/delete}" th:object="${city}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}" hidden>
+    <div>   Bạn chắc chắn muốn xóa:
+        <span th:text="${city.name} + '?'"></span>
+    </div>
+    <br>
+    <div>
+           <input class="btn" type="submit" value="Delete city">
+            <button class="btn"><a href="/">Thoát</a></button>
+    </div>
+
+</form>
+<script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
+</body>
+</html>

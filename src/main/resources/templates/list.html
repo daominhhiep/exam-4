@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css" rel="stylesheet"/>
+    <title>Title</title>
+</head>
+
+<body data-set-preferred-mode-onload="true">
+
+
+<nav class="navbar">
+    <div>
+        <button class="btn btn-action mr-5" type="button" onclick="halfmoon.toggleDarkMode()">
+            <i class="far fa-moon" aria-hidden="true"></i>
+            <span class="sr-only">Dark mode</span>
+        </button>
+    </div>
+    <div>
+        <form th:action="@{/}">
+            Tìm theo tên:
+            <label>
+                <input class="form-control" name="search" type="text" th:value="${search}"/>
+            </label>
+            <input type="submit" class="btn" value="Search"/>
+        </form>
+    </div>
+</nav>
+
+<table class="table table-striped">
+
+    <thead>
+    <tr>
+        <td><h2>Danh sách thành phố</h2></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            <button class="btn"><a th:href="@{/create}">Thêm thành phố</a></button>
+        </td>
+    </tr>
+    <tr>
+        <th>Id</th>
+        <th>Thành phố</th>
+        <th>Quốc gia</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="city : ${cities}">
+        <tr>
+            <td th:text="${city.id}"></td>
+            <td th:text="${city.name}" ></td>
+            <td th:text="${city.country.name}"></td>
+            <td><a th:href="@{/edit/__${city.id}__ }">Edit</a></td>
+            <td><a th:href="@{/delete/__${city.id}__ }">Delete</a></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+<div>
+    <a th:href="@{'/'(page=${cities.number - 1},search=${search})}" th:if="${cities.hasPrevious()}">Previous</a>
+    <span th:text="${cities.number + 1}"></span>/<span th:text="${cities.totalPages}"></span>
+    <a th:href="@{'/'(page=${cities.number + 1},search=${search})}" th:if="${cities.hasNext()}">Next</a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
+<script src="https://kit.fontawesome.com/96ec192e4d.js" crossorigin="anonymous"></script>
+</body>
+</html>
